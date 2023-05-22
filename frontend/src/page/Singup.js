@@ -46,27 +46,46 @@ const Singup = () => {
   };
 
   //showProfile
-  const handleUploadProfileImage = async(e)=>{
+  const handleUploadProfileImage = async (e) => {
     const data = await ImagetoBase64(e.target.files[0]);
-    console.log(data)
+    console.log(data);
 
-    setData((preve)=>{
-      return{
+    setData((preve) => {
+      return {
         ...preve,
-        image: data
-      }
-    })
-  }
+        image: data,
+      };
+    });
+  };
 
   //our page will be not be refresh
   //()=>it is called Arrow Function
-  const handleSubmit = (e) => {
+  console.log(process.env.REACT_APP_SERVER_DOMIN);
+  //convert into async
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const { firstName, email, password, confirmPassword } = data;
     if (firstName && email && password && confirmPassword) {
       if (password === confirmPassword) {
+        const fetchData = await fetch(
+          //.env file create and then backend server Port paste in it and the fetch below syntax
+          //``==> Template literals string
+          // fetching by object that's why it is use {}
+          `${process.env.REACT_APP_SERVER_DOMIN}/signup`,
+          {
+            method: "POST",
+            headers: {
+              "content-type": "application/json",
+            },
+            //convert Json format and body means signup key 
+            body: JSON.stringify(data),
+          }
+        );
+// fetch data which is already convert json format
+        const dataRes = await fetchData.json()
+        console.log(dataRes)
         alert("Successfull");
-        Navigate("/login")
+        // Navigate("/login");
       } else {
         alert("Password don't match");
       }
@@ -151,7 +170,7 @@ const Singup = () => {
           <label htmlFor="confirmPassword">Confirm Password</label>
           <div className=" mb-2 mt-1 flex px-2 py-1 bg-slate-200 rounded focus-within:outline focus-within:outline-blue-300">
             <input
-              type={showPassword ? "text" : "password"}
+              type={showConfirmPassword ? "text" : "password"}
               id="confirmPassword"
               name="confirmPassword"
               className="w-full bg-slate-200 rounded border-none outline-none"
