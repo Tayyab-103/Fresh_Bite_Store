@@ -43,9 +43,58 @@ const userModel = mongoose.model("user", userSchema);
 app.get("/", (req, res) => {
   res.send("server is running");
 });
-//another API
-app.post("/signup", (req, res) => {
+//Signup API
+//async before else statement
+app.post("/signup", async (req, res) => {
+  // i want to data inside the user (const userModel = mongoose.model("user", userSchema);)
   console.log(req.body);
+  // first of all i want to check this email id available in DB or not
+  const { email } = req.body;
+  //checked
+  userModel.findOne({ email: email }, (err, result) => {
+    console.log(result);
+    console.log(err);
+    if (result) {
+      res.send({ message: "Email id is already register", alert: false });
+    } else {
+      const data = userModel(req.body);
+      const save = data.save();
+      res.send({ message: "Successfully sign up", alert: true });
+    }
+  });
+});
+
+//Login API:
+app.post("/login", (req, res) => {
+  console.log(req.body);
+  // first of all i want to check this email id available in DB or not
+
+  const { email } = req.body;
+  userModel.findOne({ email: email }, (err, result) => {
+    if (result) {
+      //   console.log(result);
+      //we don't want to send the password to the user again so menually worked are as following:
+      //copy all section id to image and password filed removed and then paste in it.
+      const dataSend = {
+        _id: result._id, //new ObjectId("646c54ca5a4c8b6505b6c15b") bydefault id,
+        firstName: result.firstName,
+        lastName: result.lastName,
+        email: result.email,
+        image: result.image,
+      };
+    //   console.log(dataSend);
+      res.send({
+        message: "Login is Successfully",
+        alert: true,
+        data: dataSend,
+      });
+    } else {
+      res.send({
+        message: "Email is not available, please sign up",
+        alert: false,
+      });
+    }
+  });
 });
 
 app.listen(PORT, () => console.log("server is running at port :" + PORT));

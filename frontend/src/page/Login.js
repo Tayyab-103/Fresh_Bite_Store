@@ -3,25 +3,23 @@ import loginSignupImage from "../assest/login-animation.gif";
 import { Link, useNavigate } from "react-router-dom";
 import { BiShow } from "react-icons/bi";
 import { BiHide } from "react-icons/bi";
+import { toast } from "react-hot-toast";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   //if you share data in from then it will store step-1
   const [data, setData] = useState({
-    firstName: "",
-    lastName: "",
     email: "",
     password: "",
-    consfirmPassword: "",
   });
   console.log(data);
   const handleShowPassword = () => {
     setShowPassword((preve) => !preve);
   };
- 
+
   const Navigate = useNavigate();
   const routeChange = () => {
-    Navigate("/login");
+    Navigate("/");
   };
   //if you share data in from then it will store step-2
 
@@ -39,13 +37,33 @@ const Login = () => {
 
   //our page will be not be refresh
   //()=>it is called Arrow Function
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const {email, password } = data;
-    if (email && password) { 
-        alert("Successfull");
-    } 
-    else {
+    const { email, password } = data;
+    if (email && password) {
+      //.env file create and then backend server Port paste in it and the fetch below syntax
+      //``==> Template literals string
+      // fetching by object that's why it is use {}
+      const fetchData = await fetch(
+        `${process.env.REACT_APP_SERVER_DOMIN}/login`,
+        {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          //convert Json format and body means signup key
+          body: JSON.stringify(data),
+        }
+      );
+      // fetch data which is already convert json format
+      const dataRes = await fetchData.json();
+      console.log(dataRes);
+      toast(dataRes.message);
+
+      if (dataRes.alert) {
+      Navigate("/");
+      }
+    } else {
       alert("Please fill all the required fields");
     }
   };

@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { BiShow } from "react-icons/bi";
 import { BiHide } from "react-icons/bi";
 import { ImagetoBase64 } from "../utility/ImagetoBase64";
+import { toast } from "react-hot-toast";
 
 const Singup = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -77,15 +78,21 @@ const Singup = () => {
             headers: {
               "content-type": "application/json",
             },
-            //convert Json format and body means signup key 
+            //convert Json format and body means signup key
             body: JSON.stringify(data),
           }
         );
-// fetch data which is already convert json format
-        const dataRes = await fetchData.json()
-        console.log(dataRes)
-        alert("Successfull");
-        // Navigate("/login");
+        // fetch data which is already convert json format
+        const dataRes = await fetchData.json();
+        console.log(dataRes);
+        // alert(dataRes.message);
+        toast(dataRes.message);
+        
+//if signup successfully our user redirect to the login page
+        if(dataRes.alert){
+          Navigate("/login");
+        }
+
       } else {
         alert("Password don't match");
       }
