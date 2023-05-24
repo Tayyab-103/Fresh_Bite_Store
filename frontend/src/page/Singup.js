@@ -48,6 +48,7 @@ const Singup = () => {
 
   //showProfile
   const handleUploadProfileImage = async (e) => {
+    //this methor will be convert image into base64
     const data = await ImagetoBase64(e.target.files[0]);
     console.log(data);
 
