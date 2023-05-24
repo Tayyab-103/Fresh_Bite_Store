@@ -16,6 +16,8 @@ import Contact from "./page/Contact";
 import Login from "./page/Login";
 import Newproduct from "./page/Newproduct";
 import Singup from "./page/Singup";
+import { Provider } from "react-redux";
+import { store } from "./redux/index";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -33,7 +35,10 @@ const router = createBrowserRouter(
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <RouterProvider router={router} />
+  //wrape then in provider after a import react-redux
+  <Provider store={store}>
+    <RouterProvider router={router} />
+  </Provider>
 
   //RouterProvider used
   //or

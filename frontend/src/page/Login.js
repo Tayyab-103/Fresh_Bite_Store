@@ -4,6 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { BiShow } from "react-icons/bi";
 import { BiHide } from "react-icons/bi";
 import { toast } from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
+import { loginRedux } from "../redux/userSlice";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -12,7 +14,15 @@ const Login = () => {
     email: "",
     password: "",
   });
-  console.log(data);
+
+  // console.log(data);
+  //reducer Method from the redux
+  const userData = useSelector((state) => state);
+  // console.log(userData.user);
+
+  //to send this Data to reduce redux for that we can use the const
+  const dispatch = useDispatch();
+
   const handleShowPassword = () => {
     setShowPassword((preve) => !preve);
   };
@@ -58,11 +68,19 @@ const Login = () => {
       // fetch data which is already convert json format
       const dataRes = await fetchData.json();
       console.log(dataRes);
+
       toast(dataRes.message);
 
       if (dataRes.alert) {
-      Navigate("/");
+        //if login successfully then we can send the data to
+        dispatch(loginRedux(dataRes));
+        //login delay in one second
+        setTimeout(() => {
+          Navigate("/");
+        }, 1000);
       }
+      //this user data is coming from the  reducer Method from the redux ==>  useSelector((state) => state);
+      console.log(userData.user);
     } else {
       alert("Please fill all the required fields");
     }
