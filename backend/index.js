@@ -23,7 +23,7 @@ mongoose
   .then(() => console.log("Connect to Database"))
   .catch((err) => console.log(err));
 
-//schema
+//Step-1 schema for the user
 const userSchema = mongoose.Schema({
   firstName: String,
   lastName: String,
@@ -36,7 +36,7 @@ const userSchema = mongoose.Schema({
   image: String,
 });
 
-//Create User Model
+// Step-2 Create User Model
 const userModel = mongoose.model("user", userSchema);
 
 //API
@@ -82,7 +82,7 @@ app.post("/login", (req, res) => {
         email: result.email,
         image: result.image,
       };
-    //   console.log(dataSend);
+      //   console.log(dataSend);
       res.send({
         message: "Login is Successfully",
         alert: true,
@@ -97,4 +97,42 @@ app.post("/login", (req, res) => {
   });
 });
 
+//Product API Section:
+// make one API for save all this data to the database on mongodb:
+// Step-1 Create schema for product to save data in db
+const schemaProduct = mongoose.Schema({
+  name: String,
+  category: String,
+  image: String,
+  price: String,
+  description: String,
+});
+
+//Step-2 Create Model for Product to save data in db
+//create product collection in database
+const productModel = mongoose.model("product", schemaProduct);
+
+//Step-3 Save Product in Data API
+app.post("/uploadproduct", async (req, res) => {
+  console.log(req.body);
+  //step-4:
+  //now we want to save data to the our database:
+  const data = await productModel(req.body);
+  const datasave = await data.save();
+  //one more thing in backend side nothing data is coming for that we will send data
+  res.send({ message: "Upload Successfully" });
+  //   const product = new productModel({
+  //     name:req.body.name,
+  //     category:req.body.category,
+  //     image:req.body.image,
+  //     price:req.body.price,
+  //     description:req.body.description,
+  //     });
+});
+
+// make our own API for fetching all this data
+app.get("/product", async (req, res) => {
+  const data = await productModel.find({});
+  res.send(JSON.stringify(data));
+});
 app.listen(PORT, () => console.log("server is running at port :" + PORT));

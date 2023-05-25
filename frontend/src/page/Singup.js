@@ -87,7 +87,7 @@ const Singup = () => {
         const dataRes = await fetchData.json();
         console.log(dataRes);
         // alert(dataRes.message);
-        toast(dataRes.message);
+        toast.success(dataRes.message);
         
 //if signup successfully our user redirect to the login page
         if(dataRes.alert){

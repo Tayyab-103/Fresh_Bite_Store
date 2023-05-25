@@ -12,7 +12,7 @@ const Header = () => {
 
   // if you want the image display image for login icon then first of all use selector for get the data from the redux;
   const userData = useSelector((state) => state.user);
-  console.log(userData);
+  console.log(userData.email);
 
   const handleShowMenu = () => {
     setShowMenu((preve) => !preve);
@@ -21,8 +21,10 @@ const Header = () => {
   const dispatch = useDispatch();
   const handleLogout = () => {
     dispatch(logoutRedux());
-    toast("Logout Successfully")
+    toast.success("Logout Successfully");
   };
+
+  console.log(process.env.REACT_APP_ADMIN_EMAIL);
   return (
     <header className="fixed shadow-md w-full h-16 px-2 md:4 z-50 bg-white">
       {/* decstop */}
@@ -58,19 +60,21 @@ const Header = () => {
             </div>
             {showMenu && (
               <div className="absolute right-2 bg-white py-2 shadow drop-shadow-md flex flex-col">
-                <Link
-                  to={"newproduct"}
-                  className="whitespace-nowrap cursor-pointer px-2"
-                >
-                  New Product
-                </Link>
+                {userData.email === process.env.REACT_APP_ADMIN_EMAIL && (
+                  <Link
+                    to={"newproduct"}
+                    className="whitespace-nowrap cursor-pointer px-2"
+                  >
+                    New Product
+                  </Link>
+                )}
 
                 {userData.image ? (
                   <p
                     className="cursor-pointer hover:text-white px-2 hover:bg-red-500"
                     onClick={handleLogout}
                   >
-                    Logout
+                    Logout ({userData.firstName}){" "}
                   </p>
                 ) : (
                   <Link

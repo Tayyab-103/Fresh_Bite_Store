@@ -2,8 +2,31 @@ import "./App.css";
 import Header from "./component/Header";
 import { Outlet } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
-
+import { useEffect } from "react";
+import { setDataProduct } from "./redux/productSlice";
+import { useDispatch, useSelector } from "react-redux";
 function App() {
+  const dispatch = useDispatch()
+//checking purpose 
+const productData = useSelector((state)=>state.product)
+
+  //we can grab all this value
+  useEffect(() => {
+    //immediate call function
+    (async () => {
+      const res = await fetch(`${process.env.REACT_APP_SERVER_DOMIN}/product`);
+      const resData = await res.json();
+      console.log(resData);
+      dispatch(setDataProduct(resData));
+    })()
+  }, []);
+
+  // ^
+  // |
+  // |
+  // i want to set this data to redux to manage all this data in every component for that go on the redux folder
+// all this data we getting 
+  // console.log(productData);
   return (
     <>
       <Toaster />
