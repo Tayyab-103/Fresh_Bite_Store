@@ -1,8 +1,9 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import HomeCard from "../component/HomeCard";
 import CardFeature from "../component/CardFeature";
 import { GrPrevious, GrNext } from "react-icons/gr";
+import FilterProduct from "../component/FilterProduct";
 
 const Home = () => {
   const productData = useSelector((state) => state.product.productList);
@@ -16,16 +17,36 @@ const Home = () => {
 
   //Random data in Database:
   const loadingArray = new Array(4).fill(null);
-   const loadingArrayFeature = new Array(10).fill(null);
+  const loadingArrayFeature = new Array(10).fill(null);
 
-const slideProductRef = useRef();
-const nextProduct = () => {
-  slideProductRef.current.scrollLeft += 200;
-};
-const preveProduct = () => {
-  slideProductRef.current.scrollLeft -= 200;
-};
+  const slideProductRef = useRef();
+  const nextProduct = () => {
+    slideProductRef.current.scrollLeft += 200;
+  };
+  const preveProduct = () => {
+    slideProductRef.current.scrollLeft -= 200;
+  };
 
+  //... spread operator used
+  const categoryList = [...new Set(productData.map((el) => el.category))];
+  console.log(categoryList);
+
+  //Filter Data Display:
+  // const [filterby, setFilter] = useState("");
+  const [dataFilter, setDataFilter] = useState([]);
+
+  useEffect(() => {
+    setDataFilter(productData);
+  }, [productData]);
+
+  const handleFilterProduct = (category) => {
+    const filter = productData.filter(
+      (el) => el.category.toLowerCase() === category.toLowerCase()
+    );
+    setDataFilter(() => {
+      return [...filter];
+    });
+  };
   return (
     <div className="p-2 md:p-4">
       {/* Left-Side */}
@@ -39,8 +60,8 @@ const preveProduct = () => {
             />
           </div>
           <h2 className="text-4xl md:text-7xl font-bold py-3">
-            The Fasted Delivery in
-            <span className="text-red-600">your Home</span>
+            The Fasted Delivery in <br />
+            <span className="text-red-600"> your Home</span>
           </h2>
           <p className="py-3 text-base ">
             Lorem Ipsum is simply dummy text of the printing and typesetting
@@ -115,6 +136,36 @@ const preveProduct = () => {
             : loadingArrayFeature.map((el) => (
                 <CardFeature loading="Loading..." />
               ))}
+        </div>
+      </div>
+
+      <div className="my-5">
+        <h2 className="font-bold text-2xl text-slate-800 mb-4">Your Product</h2>
+
+        <div className="flex gap-4 justify-center overflow-scroll scrollbar-none">
+          {categoryList[0] &&
+            categoryList.map((el) => {
+              return (
+                <FilterProduct
+                  category={el}
+                  onClick={() => handleFilterProduct(el)}
+                />
+              );
+            })}
+        </div>
+
+        <div className="flex flex-wrap justify-center gap-4 my-4">
+          {dataFilter.map((el) => {
+            return (
+              <CardFeature
+                key={el._id}
+                image={el.image}
+                name={el.name}
+                category={el.category}
+                price={el.price}
+              />
+            );
+          })}
         </div>
       </div>
     </div>
