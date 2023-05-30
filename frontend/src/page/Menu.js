@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import AllProduct from "../component/AllProduct";
 
 const Menu = () => {
   //first of all i will get the value form URl
@@ -52,6 +53,8 @@ const Menu = () => {
           </div>
         </div>
       </div>
+
+<AllProduct heading={"Related Product"}/>
     </div>
   );
 };

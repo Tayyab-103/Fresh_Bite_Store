@@ -120,7 +120,7 @@ const Home = () => {
               ))}
         </div>
       </div>
-      <AllProduct />
+      <AllProduct heading={"Your Product"} />
     </div>
   );
 };
