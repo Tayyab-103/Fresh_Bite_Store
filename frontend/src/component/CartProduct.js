@@ -2,7 +2,11 @@ import React from 'react'
 import { TbPlus, TbMinus } from "react-icons/tb";
 import { AiFillDelete } from "react-icons/ai";
 import { useDispatch } from 'react-redux';
-import { deleteCartItem,} from "../redux/productSlice";
+import {
+  deleteCartItem,
+  increaseQty,
+  decreaseQty,
+} from "../redux/productSlice";
 
 const CartProduct = ({ id, name, image, category, qty, total, price }) => {
      const dispatch = useDispatch();
@@ -18,27 +22,27 @@ const CartProduct = ({ id, name, image, category, qty, total, price }) => {
           </h3>
           <div
             className="cursor-pointer text-slate-700 hover:text-red-500 transform hover:scale-150 transition duration-300"
-            onClick={()=> dispatch(deleteCartItem(id))}
+            onClick={() => dispatch(deleteCartItem(id))}
           >
             <AiFillDelete />
           </div>
         </div>
         <p className=" text-slate-500  font-medium ">{category}</p>
         <p className=" font-bold text-base">
-          <span className="text-red-500 ">Rs</span>
+          <span className="text-red-500 ">Rs </span>
           <span>{price}</span>
         </p>
         <div className="flex justify-between ">
           <div className="flex gap-3 items-center">
             <button
-                // onClick={()=> dispatch(increaseQty(id))}
+              onClick={() => dispatch(increaseQty(id))}
               className="bg-slate-300 py-1 mt-2 rounded hover:bg-slate-400 p-1 "
             >
               <TbPlus />
             </button>
             <p className="font-semibold p-1">{qty}</p>
             <button
-                // onClick={() => dispatch(decreaseQty(id))}
+              onClick={() => dispatch(decreaseQty(id))}
               className="bg-slate-300 py-1 mt-2 rounded hover:bg-slate-400 p-1 "
             >
               <TbMinus />

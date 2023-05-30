@@ -5,38 +5,33 @@ const initialState = {
   productList: [],
   cartItem: [],
 };
+
 export const productSlice = createSlice({
   name: "product",
   initialState,
   reducers: {
     setDataProduct: (state, action) => {
-      // console.log(action);
       state.productList = [...action.payload];
     },
-
     addCartItem: (state, action) => {
-      console.log(action);
-         const check = state.cartItem.some((el) => el._id === action.payload._id);
+      const check = state.cartItem.some((el) => el._id === action.payload._id);
       if (check) {
-        toast.error("Oops! Already Item in Cart");
+        toast.error("Already Item in Cart");
       } else {
         toast.success("Add to Successfully");
-       const total = action.payload.price;
-      state.cartItem = [
-        ...state.cartItem,
-        { ...action.payload, qty: 1, total: total },
-      ];
-    }
+        const total = action.payload.price;
+        state.cartItem = [
+          ...state.cartItem,
+          { ...action.payload, qty: 1, total: total },
+        ];
+      }
     },
     deleteCartItem: (state, action) => {
-       toast.success("one Item Delete");
-       const index = state.cartItem.findIndex(
-         (el) => el._id === action.payload
-       );
-       state.cartItem.splice(index, 1);
-       console.log(index);
+      toast.success("one Item Delete");
+      const index = state.cartItem.findIndex((el) => el._id === action.payload);
+      state.cartItem.splice(index, 1);
+      console.log(index);
     },
-  },
     increaseQty: (state, action) => {
       const index = state.cartItem.findIndex((el) => el._id === action.payload);
       let qty = state.cartItem[index].qty;
@@ -47,13 +42,12 @@ export const productSlice = createSlice({
       const total = price * qtyInc;
 
       state.cartItem[index].total = total;
-      
     },
-     decreaseQty: (state, action) => {
+    decreaseQty: (state, action) => {
       const index = state.cartItem.findIndex((el) => el._id === action.payload);
       let qty = state.cartItem[index].qty;
       if (qty > 1) {
-        const qtyDec = ++qty;
+        const qtyDec = --qty;
         state.cartItem[index].qty = qtyDec;
 
         const price = state.cartItem[index].price;
@@ -62,6 +56,7 @@ export const productSlice = createSlice({
         state.cartItem[index].total = total;
       }
     },
+  },
 });
 
 export const {
@@ -71,4 +66,5 @@ export const {
   increaseQty,
   decreaseQty,
 } = productSlice.actions;
+
 export default productSlice.reducer;

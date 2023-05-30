@@ -23,8 +23,8 @@ const Header = () => {
     dispatch(logoutRedux());
     toast.success("Logout Successfully");
   };
-//increasing cart item numbers:
-const cartItemNumber = useSelector((state) => state.product.cartItem);
+  //increasing cart item numbers:
+  const cartItemNumber = useSelector((state) => state.product.cartItem);
   // console.log(process.env.REACT_APP_ADMIN_EMAIL);
   return (
     <header className="fixed shadow-md w-full h-16 px-2 md:4 z-50 bg-white">
@@ -32,7 +32,7 @@ const cartItemNumber = useSelector((state) => state.product.cartItem);
 
       <div className="flex items-center h-full justify-between">
         <Link to={""}>
-          <div className="h-10">
+          <div className="h-40 mt-6">
             <img src={logo} alt="Logo Image" className="h-full" />
           </div>
         </Link>
