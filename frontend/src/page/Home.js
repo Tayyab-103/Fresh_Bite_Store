@@ -7,13 +7,13 @@ import AllProduct from "../component/AllProduct";
 
 const Home = () => {
   const productData = useSelector((state) => state.product.productList);
-  console.log(productData);
+  // console.log(productData);
   const homeProductCardList = productData.slice(1, 5);
   const homeProductCartListVegetables = productData.filter(
     (el) => el.category === "vegetable",
     [] //.coming data in the form of array
   );
-  console.log(homeProductCartListVegetables);
+  // console.log(homeProductCartListVegetables);
 
   //Random data in Database:
   const loadingArray = new Array(4).fill(null);
@@ -71,7 +71,7 @@ const Home = () => {
                 );
               })
             : loadingArray.map((el, index) => {
-                return <HomeCard key={index} loading={"Loading..."} />;
+                return <HomeCard key={index+"loading..."} loading={"Loading..."} />;
               })}
         </div>
       </div>
@@ -106,7 +106,7 @@ const Home = () => {
             ? homeProductCartListVegetables.map((el) => {
                 return (
                   <CardFeature
-                    key={el._id}
+                    key={el._id+"vegetable"}
                     id={el._id}
                     name={el.name}
                     category={el.category}
@@ -115,8 +115,8 @@ const Home = () => {
                   />
                 );
               })
-            : loadingArrayFeature.map((el) => (
-                <CardFeature loading="Loading..." />
+            : loadingArrayFeature.map((el,index) => (
+                <CardFeature loading="Loading..." key={index+"cartloading"} />
               ))}
         </div>
       </div>

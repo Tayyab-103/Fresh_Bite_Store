@@ -1,11 +1,13 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import AllProduct from "../component/AllProduct";
+import { addCartItem } from "../redux/productSlice";
 
 const Menu = () => {
   //first of all i will get the value form URl
   const { filterby } = useParams();
+  const dispatch = useDispatch();
   const productData = useSelector((state) => state.product.productList);
   //Check data are shows on console or not:
   // console.log(productData);
@@ -13,6 +15,11 @@ const Menu = () => {
   const productDisplay = productData.filter((el) => el._id === filterby)[0];
   console.log(productDisplay);
 
+  const handleAddCartProduct = (e) => {
+    // e.stopPropogation();
+    dispatch(addCartItem(productDisplay));
+    // alert("hi")
+  };
   return (
     <div className="p-2 md:p-4">
       <div className="w-full max-w-4xl m-auto md:flex bg-white">
@@ -41,7 +48,7 @@ const Menu = () => {
               Buy
             </button>
             <button
-              // onClick={handleAddCartProduct}
+              onClick={handleAddCartProduct}
               className="bg-yellow-500 py-1 mt-2 rounded hover:bg-yellow-600 min-w-[100px]"
             >
               Add Cart
@@ -54,7 +61,7 @@ const Menu = () => {
         </div>
       </div>
 
-<AllProduct heading={"Related Product"}/>
+      <AllProduct heading={"Related Product"} />
     </div>
   );
 };
