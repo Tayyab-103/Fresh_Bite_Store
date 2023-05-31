@@ -121,13 +121,6 @@ app.post("/uploadproduct", async (req, res) => {
   const datasave = await data.save();
   //one more thing in backend side nothing data is coming for that we will send data
   res.send({ message: "Upload Successfully" });
-  //   const product = new productModel({
-  //     name:req.body.name,
-  //     category:req.body.category,
-  //     image:req.body.image,
-  //     price:req.body.price,
-  //     description:req.body.description,
-  //     });
 });
 
 // make our own API for fetching all this data
