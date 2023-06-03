@@ -66,7 +66,7 @@ app.post("/signup", async (req, res) => {
 
 //Login API:
 app.post("/login", (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   // first of all i want to check this email id available in DB or not
 
   const { email } = req.body;
@@ -114,7 +114,7 @@ const productModel = mongoose.model("product", schemaProduct);
 
 //Step-3 Save Product in Data API
 app.post("/uploadproduct", async (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   //step-4:
   //now we want to save data to the our database:
   const data = await productModel(req.body);
@@ -128,4 +128,8 @@ app.get("/product", async (req, res) => {
   const data = await productModel.find({});
   res.send(JSON.stringify(data));
 });
+
+//API for the Payment System (Payment Get way):
+
+
 app.listen(PORT, () => console.log("server is running at port :" + PORT));
