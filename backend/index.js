@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv").config();
+const Stripe = require("stripe");
 
 const app = express();
 //cors url is comming error thats way use this
@@ -130,6 +131,51 @@ app.get("/product", async (req, res) => {
 });
 
 //API for the Payment System (Payment Get way):
+console.log(process.env.STRIPE_SECRET_KEY);
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+app.post("/create-checkout-session", async (req, res) => {
+  console.log(req.body);
 
+  try {
+    // this parameter for that all this my price all,  these item list price list according to the stripe payment gateway  which by default make for that here i will just give the params and this will be the object and i will pass these params
+    const params = {
+      submit_type: "pay",
+      mode: "payment",
+      payment_method_types: ["card"],
+      billing_address_collection: "auto",
+      shipping_options: [{ shipping_rate: "shr_1NHMq4GM0XBpsXVFnJrhcC1u" }],
+      // this will be the our card items in side line_items this will be the accept of array
+      line_items: req.body.map((item) => {
+        return {
+          price_data: {
+            currency: "usd",
+            product_data: {
+              name: item.name,
+              // images : [item.image]
+            },
+            unit_amount: item.price * 100,
+          },
+          adjustable_quantity: {
+            enabled: true,
+            minimum: 1,
+          },
+          quantity: item.qty,
+        };
+      }),
+
+      success_url: `${process.env.FRONTEND_URL}/success`,
+      cancel_url: `${process.env.FRONTEND_URL}/cancel`,
+    };
+    // first of all integrated all the parameter which are inside this i will implement
+    //and this is your stripe method for checkout section by default stripe will be provided
+
+    const session = await stripe.checkout.sessions.create(params);
+    // console.log(session);
+    // now here after that this i want to give the res i will send to the request
+    res.status(200).json(session.id);
+  } catch (err) {
+    res.status(err.statusCode || 500).json(err.message);
+  }
+});
 
 app.listen(PORT, () => console.log("server is running at port :" + PORT));

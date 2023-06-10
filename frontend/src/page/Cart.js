@@ -2,8 +2,8 @@ import React from "react";
 import { useSelector } from "react-redux";
 import CartProduct from "../component/CartProduct";
 import emptyCartImage from "../assest/empty.gif";
-// import { toast } from "react-hot-toast";
-// import { loadStripe } from "@stripe/stripe-js";
+import { toast } from "react-hot-toast";
+import { loadStripe } from "@stripe/stripe-js";
 import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
@@ -20,35 +20,35 @@ const Cart = () => {
     0
   );
 
-//   const handlePayment = async () => {
-//     if (user.email) {
-//       const stripePromise = await loadStripe(
-//         process.env.REACT_APP_STRIPE_PUBLIC_KEY
-//       );
-//       const res = await fetch(
-//         `${process.env.REACT_APP_SERVER_DOMIN}/create-checkout-session`,
-//         {
-//           method: "POST",
-//           headers: {
-//             "content-type": "application/json",
-//           },
-//           body: JSON.stringify(productCartItem),
-//         }
-//       );
-//       if (res.statusCode === 500) return;
+    const handlePayment = async () => {
+      if (user.email) {
+        const stripePromise = await loadStripe(
+          process.env.REACT_APP_STRIPE_PUBLIC_KEY
+        );
+        const res = await fetch(
+          `${process.env.REACT_APP_SERVER_DOMIN}/create-checkout-session`,
+          {
+            method: "POST",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify(productCartItem),
+          }
+        );
+        if (res.statusCode === 500) return;
 
-//       const data = await res.json();
-//       console.log(data);
+        const data = await res.json();
+        console.log(data);
 
-//       toast("Redirect to payment Gateway...!");
-//       stripePromise.redirectToCheckout({ sessionId: data });
-//     } else {
-//       toast("You have not Login!");
-//       setTimeout(() => {
-//         navigate("/login");
-//       }, 1000);
-//     }
-//   };
+        toast.success("Redirect to payment Gateway...!");
+        stripePromise.redirectToCheckout({ sessionId: data });
+      } else {
+        toast.error("You have not Login!");
+        setTimeout(() => {
+          navigate("/login");
+        }, 1000);
+      }
+    };
   return (
     <>
       <div className="p-2 md:p-4">
@@ -91,7 +91,7 @@ const Cart = () => {
               </div>
               <button
                 className="bg-red-500 w-full text-lg font-bold py-2 text-white"
-                // onClick={handlePayment}
+                onClick={handlePayment}
               >
                 Payment
               </button>
