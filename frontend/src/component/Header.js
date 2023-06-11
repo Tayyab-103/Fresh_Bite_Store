@@ -12,7 +12,7 @@ const Header = () => {
 
   // if you want the image display image for login icon then first of all use selector for get the data from the redux;
   const userData = useSelector((state) => state.user);
-  console.log(userData.email);
+  // console.log(userData.email);
 
   const handleShowMenu = () => {
     setShowMenu((preve) => !preve);

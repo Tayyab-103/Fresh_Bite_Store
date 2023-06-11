@@ -18,7 +18,7 @@ const Singup = () => {
     confirmPassword: "",
     image: "",
   });
-  console.log(data);
+  // console.log(data);
   const handleShowPassword = () => {
     setShowPassword((preve) => !preve);
   };
@@ -50,7 +50,7 @@ const Singup = () => {
   const handleUploadProfileImage = async (e) => {
     //this methor will be convert image into base64
     const data = await ImagetoBase64(e.target.files[0]);
-    console.log(data);
+    // console.log(data);
 
     setData((preve) => {
       return {
@@ -85,7 +85,7 @@ const Singup = () => {
         );
         // fetch data which is already convert json format
         const dataRes = await fetchData.json();
-        console.log(dataRes);
+        // console.log(dataRes);
         // alert(dataRes.message);
         toast.success(dataRes.message);
         

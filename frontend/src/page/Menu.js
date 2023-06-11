@@ -1,24 +1,30 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import AllProduct from "../component/AllProduct";
 import { addCartItem } from "../redux/productSlice";
 
 const Menu = () => {
   //first of all i will get the value form URl
   const { filterby } = useParams();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const productData = useSelector((state) => state.product.productList);
   //Check data are shows on console or not:
   // console.log(productData);
 
   const productDisplay = productData.filter((el) => el._id === filterby)[0];
-  console.log(productDisplay);
+  // console.log(productDisplay);
 
   const handleAddCartProduct = (e) => {
     // e.stopPropogation();
     dispatch(addCartItem(productDisplay));
     // alert("hi")
+  };
+
+  const handleBuy = () => {
+    dispatch(addCartItem(productDisplay));
+    navigate("/cart")
   };
   return (
     <div className="p-2 md:p-4">
@@ -42,7 +48,7 @@ const Menu = () => {
           </p>
           <div className="flex gap-3">
             <button
-              // onClick={handleBuy}
+              onClick={handleBuy}
               className="bg-yellow-500 py-1 mt-2 rounded hover:bg-yellow-600 min-w-[100px]"
             >
               Buy

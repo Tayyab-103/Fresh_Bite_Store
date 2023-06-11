@@ -46,7 +46,7 @@ const Login = () => {
   };
 
   //our page will be not be refresh
-  //()=>it is called Arrow Function
+  // ()=>it is called Arrow Function
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { email, password } = data;
@@ -67,7 +67,7 @@ const Login = () => {
       );
       // fetch data which is already convert json format
       const dataRes = await fetchData.json();
-      console.log(dataRes);
+      // console.log(dataRes);
 
       toast.success(dataRes.message);
 

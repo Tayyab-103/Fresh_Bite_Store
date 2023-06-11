@@ -7,7 +7,7 @@ const AllProduct = ({ heading }) => {
   const productData = useSelector((state) => state.product.productList);
   //... spread operator used
   const categoryList = [...new Set(productData.map((el) => el.category))];
-  console.log(categoryList);
+  // console.log(categoryList);
 
   //Filter Data Display:
   const [filterby, setFilterBy] = useState("");

@@ -48,7 +48,7 @@ app.get("/", (req, res) => {
 //async before else statement
 app.post("/signup", async (req, res) => {
   // i want to data inside the user (const userModel = mongoose.model("user", userSchema);)
-  console.log(req.body);
+  // console.log(req.body);
   // first of all i want to check this email id available in DB or not
   const { email } = req.body;
   //checked
@@ -134,7 +134,7 @@ app.get("/product", async (req, res) => {
 console.log(process.env.STRIPE_SECRET_KEY);
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 app.post("/create-checkout-session", async (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
 
   try {
     // this parameter for that all this my price all,  these item list price list according to the stripe payment gateway  which by default make for that here i will just give the params and this will be the object and i will pass these params
