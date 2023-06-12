@@ -51,11 +51,12 @@ const Cart = () => {
     };
   return (
     <>
+      <div class="bg-gray-700 text-white py-4 text-center">
+        <div class="container mx-auto px-4">
+          <h1 class="text-2xl font-bold">Your Cart Items </h1>
+        </div>
+      </div>
       <div className="p-2 md:p-4">
-        <h2 className="text-lg md:text-2xl font-bold text-slate-600">
-          Your Cart Items
-        </h2>
-
         {productCartItem[0] ? (
           <div className="my-4 flex gap-3">
             {/* display cart items  */}
@@ -90,7 +91,7 @@ const Cart = () => {
                 </p>
               </div>
               <button
-                className="bg-red-500 w-full text-lg font-bold py-2 text-white"
+                className="bg-red-500 w-full text-lg font-bold py-2 text-white "
                 onClick={handlePayment}
               >
                 Payment
@@ -106,6 +107,14 @@ const Cart = () => {
           </>
         )}
       </div>
+
+      <footer class="bg-gray-700 text-white py-6 ">
+        <div class="container mx-auto px-4">
+          <p class="text-center">
+            © 2023 Fresh-Bite Store. All rights reserved.
+          </p>
+        </div>
+      </footer>
     </>
   );
 };
