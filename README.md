@@ -5,6 +5,10 @@ Backend Environment Variables:
 
 MONGODB_URL:""
 
+STRIPE_SECRET_KEY : ""
+
+FRONTEND_URL : ""
+
 Start:
 
 # npm run dev
@@ -14,6 +18,8 @@ Frontend Environment Variables:
 REACT_APP_Server_DOMIN = http://localhost:8080
 
 REACT_APP_ADMIN_EMAIL =
+
+REACT_APP_STRIPE_PUBLIC_KEY =
 
 Start:
 
