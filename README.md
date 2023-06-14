@@ -9,6 +9,8 @@ STRIPE_SECRET_KEY : ""
 
 FRONTEND_URL : ""
 
+My Backend URL: https://backend-fresh-bite.onrender.com
+
 Start:
 
 # npm run dev
@@ -20,6 +22,8 @@ REACT_APP_Server_DOMIN = http://localhost:8080
 REACT_APP_ADMIN_EMAIL =
 
 REACT_APP_STRIPE_PUBLIC_KEY =
+
+My Frontend URL: https://fresh-bite.vercel.app
 
 Start:
 
