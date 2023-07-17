@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emailjs/browser": "^3.11.0",
     "@reduxjs/toolkit": "^1.9.5",
     "@stripe/react-stripe-js": "^2.1.0",
     "@stripe/stripe-js": "^1.54.0",
