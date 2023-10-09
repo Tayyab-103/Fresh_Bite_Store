@@ -1,14 +1,14 @@
 import "./App.css";
 import Header from "./component/Header";
 import { Outlet } from "react-router-dom";
-import toast, { Toaster } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 import { useEffect } from "react";
 import { setDataProduct } from "./redux/productSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 function App() {
   const dispatch = useDispatch()
 //checking purpose 
-const productData = useSelector((state)=>state.product)
+// const productData = useSelector((state)=>state.product)
 
   //we can grab all this value
   useEffect(() => {
@@ -18,8 +18,8 @@ const productData = useSelector((state)=>state.product)
       const resData = await res.json();
       // console.log(resData);
       dispatch(setDataProduct(resData));
-    })()
-  }, []);
+    })();
+  }, [dispatch]);
 
   // ^
   // |

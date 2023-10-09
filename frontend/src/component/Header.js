@@ -33,7 +33,7 @@ const Header = () => {
       <div className="flex items-center h-full justify-between">
         <Link to={""}>
           <div className="h-40 mt-6">
-            <img
+            <image
               src={logo}
               alt="Logo Image"
               className="h-full transform hover:scale-110 transition duration-300"
@@ -81,7 +81,7 @@ const Header = () => {
           <div className=" text-slate-600 " onClick={handleShowMenu}>
             <div className="text-3xl cursor-pointer h-8 w-8 rounded-full overflow-hidden drop-shadow">
               {userData.image ? (
-                <img src={userData.image} className="w-full h-full" />
+                <image src={userData.image} alt="header image" className="w-full h-full" />
               ) : (
                 <BiUserCircle />
               )}
