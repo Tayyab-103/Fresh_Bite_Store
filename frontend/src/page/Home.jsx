@@ -42,7 +42,7 @@ const Home = () => {
               <p className="text-sm font-medium text-slate-900">
                 Bike Delivery
               </p>
-              <image
+              <img
                 src="https://cdn-icons-png.flaticon.com/512/2972/2972185.png"
                 alt="home image"
                 className="h-7"

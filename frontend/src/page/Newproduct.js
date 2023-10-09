@@ -111,7 +111,7 @@ const Newproduct = () => {
           Image
           <div className="h-40 w-full bg-slate-200 rounded flex items-center justify-center cursor-pointer hover:bg-slate-300">
             {data.image ? (
-              <image src={data.image} alt="new product image" className="h-full" />
+              <img src={data.image} alt="new product image" className="h-full" />
             ) : (
               <span className="text-5xl">
                 <BsCloudUpload />

@@ -101,7 +101,7 @@ const Cart = () => {
         ) : (
           <>
             <div className="flex w-full justify-center items-center flex-col">
-              <image src={emptyCartImage} alt="cart image" className="w-full max-w-sm" />
+              <img src={emptyCartImage} alt="cart image" className="w-full max-w-sm" />
               <p className="text-slate-500 text-3xl font-bold">Empty Cart</p>
             </div>
           </>

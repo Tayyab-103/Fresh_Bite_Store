@@ -6,7 +6,7 @@ const Cancel = () => {
       <>
     <div className="relative top-20">
       <div className="flex w-full justify-center items-center flex-col">
-              <image src={paymentErrorCartImage} alt='cancel immage' className="w-full max-w-sm" />
+              <img src={paymentErrorCartImage} alt='cancel immage' className="w-full max-w-sm" />
             
               <p className="text-slate-500 text-3xl font-bold">Payment is Cancel</p>
       </div>

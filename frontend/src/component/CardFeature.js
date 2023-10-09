@@ -29,7 +29,7 @@ const CardFeature = ({ image, name, price, category, loading, id }) => {
             onClick={() => window.scrollTo({ top: "0", behavior: "smooth" })}
           >
             <div className="h-28 flex flex-col justify-center items-center ">
-              <image src={image} alt="image" className="h-full" />
+              <img src={image} alt="image" className="h-full" />
             </div>
             <h3 className="font-semibold text-slate-600  capitalize text-lg mt-4 whitespace-nowrap overflow-hidden">
               {name}
